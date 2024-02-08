@@ -1,0 +1,22 @@
+{
+    "name": "monir/mine",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "App/Helpers/helper.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Monir Saikat",
+            "email": "118444503+MonirSaikat@users.noreply.github.com"
+        }
+    ],
+    "require-dev": {
+        "mp091689/dump-die": "^1.0"
+    }
+}
