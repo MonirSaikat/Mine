@@ -4,11 +4,38 @@ namespace App\Controllers;
 
 class Controller
 {
+  public $layout;
+
+  public function __construct()
+  {
+    $this->layout = 'site';
+  }
+
+  /**
+   * Render the view for the controller
+   * @param string $viewFile
+   * @param array $data
+   */
   public function view($viewFile = 'index', $data = [])
   {
     extract($data);
-    $viewPath = $this->getViewPath($viewFile);
-    include $viewPath;
+    $viewPath             = $this->getViewPath($viewFile);
+    $includePathForLayout = $viewPath;
+    include $this->getLayout();
+  }
+
+  /**
+   * Get the layout for the controller
+   */
+  private function getLayout()
+  {
+    $layoutPath = 'views/layouts/' . $this->layout . '.php';
+
+    if (!file_exists($layoutPath)) {
+      die("Error: Layout file '{$this->layout}.php' not found.");
+    }
+
+    return $layoutPath;
   }
 
   /**

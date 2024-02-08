@@ -93,11 +93,21 @@ class Router
       $controller = $this->controllerNamespace() . ucfirst($route);
     }
 
+    $controller = str_replace('?'.$this->queryStrings(), '', $controller);
     $controller = $controller . $this->controllerSuffix();
     
     return $controller;
   }
 
+  /**
+   * Get the query strings from the url
+   */
+  public function queryStrings() 
+  {
+    $queryString = $_SERVER['QUERY_STRING'];
+    return $queryString;
+  }
+  
   /**
    * Get the method name for the controller
    * It's being returned in lowercase
@@ -112,7 +122,7 @@ class Router
     }
 
     $methodWithParams    = str_replace('.php', '', $route);
-    $methodWithoutParams = str_replace('?*', '', $methodWithParams);
+    $methodWithoutParams = str_replace('?' . $this->queryStrings(), '', $methodWithParams);
     return strtolower($methodWithoutParams);
   }
 }
